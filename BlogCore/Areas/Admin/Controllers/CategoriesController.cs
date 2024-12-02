@@ -30,8 +30,8 @@ namespace BlogCore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
 		public IActionResult Create(Category category)
 		{
-            if(ModelState.IsValid)
-			{
+            if(ModelState.IsValid) // Importante!! Este isValid es para procesar las validaciones escritas en el modelo.
+			{ // La principal diferencia con Laravel es que en este caso si entra al método antes de validar.
 				_workContainer.Category.Add(category);
 				_workContainer.Save();
 				return RedirectToAction(nameof(Index));

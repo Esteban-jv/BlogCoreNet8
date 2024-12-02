@@ -17,6 +17,7 @@ namespace BlogCore.Models
         public string Name { get; set; }
 
         [Display(Name = "Orden de visualización")]
+        [Range(1, int.MaxValue, ErrorMessage = "El valor debe ser mayor o igual a 0")]
         public int? Order { get; set; }
     }
 }
