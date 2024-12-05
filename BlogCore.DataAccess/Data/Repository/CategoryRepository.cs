@@ -1,6 +1,7 @@
 ﻿using BlogCore.Data;
 using BlogCore.DataAccess.Data.Repository.IRepository;
 using BlogCore.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlogCore.DataAccess.Data.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    internal class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         private readonly ApplicationDbContext _db;
 
@@ -18,7 +19,16 @@ namespace BlogCore.DataAccess.Data.Repository
             _db = db;
         }
 
-        public void Update(Category category)
+		public IEnumerable<SelectListItem> GetCategoriesList()
+		{
+			return _db.Categories.Select(i => new SelectListItem()
+			{
+				Text = i.Name,
+				Value = i.Id.ToString()
+			});
+		}
+
+		public void Update(Category category)
         {
             var objFromDb = _db.Categories.FirstOrDefault(s => s.Id == category.Id);
 
@@ -26,7 +36,7 @@ namespace BlogCore.DataAccess.Data.Repository
             {
                 objFromDb.Name = category.Name;
                 objFromDb.Order = category.Order;
-                _db.SaveChanges();
+                // _db.SaveChanges();
             }
         }
     }

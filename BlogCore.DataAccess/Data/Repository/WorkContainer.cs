@@ -1,5 +1,6 @@
 ﻿using BlogCore.Data;
 using BlogCore.DataAccess.Data.Repository.IRepository;
+using BlogCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace BlogCore.DataAccess.Data.Repository
         {
             _db = db;
             Category = new CategoryRepository(_db);
-        }
+			Article = new ArticleRepository(_db);
+		}
 
         public ICategoryRepository Category { get; private set; }
+		public IArticleRepository Article { get; private set; }
 
-        public void Dispose()
+		public void Dispose()
         {
             _db.Dispose();
         }

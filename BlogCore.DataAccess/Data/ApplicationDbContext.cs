@@ -13,5 +13,6 @@ namespace BlogCore.Data
 
         // Add here all models
         public DbSet<Category> Categories { get; set; }
-    }
+		public DbSet<Article> Articles { get; set; }
+	}
 }

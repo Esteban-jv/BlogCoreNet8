@@ -1,0 +1,48 @@
+﻿@model BlogCore.Models.ViewModels.ArticleVM
+
+@{
+	ViewData["Title"] = "Crear articulo";
+}
+
+<h3 class="text-center mt-3">Crear artículo</h3>
+<hr />
+<div class="container">
+	<div class="row px-2 offset-1">
+		<div class="col-12">
+			<form method="POST" asp-action="Create" enctype="multipart/form-data">
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<div class="form-group">
+					<label asp-for="Article.Title" class="control-label"></label>
+					<input asp-for="Article.Title" class="form-control" />
+					<span asp-validation-for="Article.Title" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Article.Description" class="control-label"></label>
+					<input asp-for="Article.Description" class="form-control" />
+					<span asp-validation-for="Article.Description" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label for="Categoría" class="control-label">Categoría</label>
+					<div>
+						@Html.DropDownListFor(m => m.Article.CategoryId, Model.CategoriesList,
+						"-Seleccionar", new { @class = "form-control"})
+						<span asp-validation-for="Article.CategoryId" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Article.UrlImage" class="control-label">Imagen</label>
+					<input type="file" name="files" id="uploadFiles" class="form-control" />
+					<span asp-validation-for="Article.UrlImage" class="text-danger"></span>
+				</div>
+				<div class="form-group mt-2">
+					<partial name="_CreateBackView" />
+				</div>
+			</form>
+		</div>
+	</div>
+
+	@section Scripts {
+		@{
+			<partial name="_ValidationScriptsPartial" />
+		}
+	}
