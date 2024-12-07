@@ -1,15 +1,16 @@
 ﻿@model BlogCore.Models.ViewModels.ArticleVM
 
 @{
-	ViewData["Title"] = "Crear articulo";
+	ViewData["Title"] = "Editar artículo";
 }
 
-<h3 class="text-center mt-3">Crear artículo</h3>
+<h3 class="text-center mt-3">Editar artículo</h3>
 <hr />
 <div class="container">
-	<div class="row px-2 offset-1">
-		<div class="col-12">
-			<form method="POST" asp-action="Create" enctype="multipart/form-data">
+	<form method="POST" asp-action="Edit" enctype="multipart/form-data">
+		<input type="hidden" asp-for="Article.Id" />
+		<div class="row px-2">
+			<div class="col-8">
 				<div asp-validation-summary="All" class="text-danger"></div>
 				<div class="form-group">
 					<label asp-for="Article.Title" class="control-label"></label>
@@ -26,7 +27,7 @@
 					<label for="Categoría" class="control-label">Categoría</label>
 					<div>
 						@Html.DropDownListFor(m => m.Article.CategoryId, Model.CategoriesList,
-						"-Seleccionar", new { @class = "form-control"})
+															"-Seleccionar", new { @class = "form-control" })
 						<span asp-validation-for="Article.CategoryId" class="text-danger"></span>
 					</div>
 				</div>
@@ -38,9 +39,12 @@
 				<div class="form-group mt-2">
 					<partial name="_CreateBackView" />
 				</div>
-			</form>
+			</div>
+			<div class="col-4">
+				<img src="@Model.Article.UrlImage" class="img-fluid shadow" style="border-radius:5px; border:1px solid #bbb9b9;" />
+			</div>
 		</div>
-	</div>
+	</form>
 
 	@section Scripts {
 		@{
